@@ -10,6 +10,8 @@ public class GameLogic
     private int _frameCount;
     private int _score = 0;
 
+    public int Score => _score;
+
     public void InitializeGame(GameRenderer gameRenderer)
     {
         var textureId = gameRenderer.LoadTexture("image.png", out var textureInfo);
@@ -51,7 +53,7 @@ public class GameLogic
 
     public void ProcessFrame()
     {
-        _player.X += 1;
+        _player.X += 4; // viteză mărită
         _player.TextureDestination = new Rectangle<int>(_player.X, _player.Y, _player.Width, _player.Height);
 
         var i = _frameCount % 10;
@@ -73,6 +75,7 @@ public class GameLogic
                 _coins.RemoveAt(iCoin);
                 _gameObjects.Remove(coin);
                 _score++;
+                SoundHelper.PlayWav("coin.wav");
                 Console.WriteLine($"Coin colectat! Scor: {_score}");
             }
         }
